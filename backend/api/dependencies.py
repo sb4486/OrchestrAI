@@ -1,9 +1,8 @@
 from typing import Annotated, Iterable
 
+from config import settings
 from fastapi import Depends
 from langchain_openai import ChatOpenAI
-
-from config import settings
 
 
 def llm_factory() -> ChatOpenAI:

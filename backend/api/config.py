@@ -10,6 +10,7 @@ class Settings(BaseSettings):
 
     model: str = "gpt-4o-mini-2024-07-18"
     openai_api_key: str = ""
+    mcp_server_port: int = 8050
 
     pg_url: str = "postgres://postgres"
     pg_user: str = "postgres"

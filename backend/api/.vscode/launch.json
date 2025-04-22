@@ -11,6 +11,7 @@
             "module": "fastapi",
             "args": [
                 "run",
+                "api/main.py",
                 "--reload"
             ]
         }
