@@ -1,10 +1,26 @@
 services:
-  backend:
-    image: backend:dev
+  api:
+    image: api:prod
     build:
-      context: ./backend
-    entrypoint: bash -c "sleep infinity"
+      context: .
+      dockerfile: ./backend/api/Dockerfile
+    entrypoint: bash -c "uv run fastapi run api/main.py --reload"
     env_file:
-      - ./envs/backend.env
+      - ./envs/shared_mcp.env
+    ports:
+      - 8000:8000
     volumes:
-      - ./backend:/app
+      - ./backend/api:/app/api
+      - ./backend/api/.vscode/:/app/.vscode
+      - ./backend/shared_mcp:/app/shared_mcp
+
+  mcp:
+    image: mcp:prod
+    build:
+      context: .
+      dockerfile: ./backend/mcp/Dockerfile
+    env_file:
+      - ./envs/shared_mcp.env
+    volumes:
+      - ./backend/mcp:/app/mcp
+      - ./backend/shared_mcp:/app/shared_mcp
