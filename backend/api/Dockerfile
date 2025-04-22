@@ -1,7 +1,7 @@
 FROM ghcr.io/astral-sh/uv:python3.13-bookworm
 
 WORKDIR /app
-COPY ./backend/api/uv.lock ./backend/api/pyproject.toml .
+COPY ./backend/api/uv.lock ./backend/api/pyproject.toml ./
 RUN uv sync --frozen
 RUN apt-get update && apt-get install -y --no-install-recommends curl
 COPY ./envs/backend.env /opt/.env
