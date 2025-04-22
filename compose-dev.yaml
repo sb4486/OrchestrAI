@@ -6,7 +6,7 @@ services:
       dockerfile: ./backend/api/Dockerfile
     entrypoint: bash -c "uv run fastapi run api/main.py --reload"
     env_file:
-      - ./.env
+      - ./envs/shared_mcp.env
     ports:
       - 8000:8000
     volumes:
@@ -20,7 +20,7 @@ services:
       context: .
       dockerfile: ./backend/mcp/Dockerfile
     env_file:
-      - ./.env
+      - ./envs/shared_mcp.env
     entrypoint: bash -c "uv run mcp/main.py"
     volumes:
       - ./backend/mcp:/app/mcp
