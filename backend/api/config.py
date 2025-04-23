@@ -1,3 +1,4 @@
+from pydantic import PostgresDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -12,9 +13,9 @@ class Settings(BaseSettings):
     openai_api_key: str = ""
     mcp_server_port: int = 8050
 
-    pg_url: str = "postgres://postgres"
-    pg_user: str = "postgres"
-    pg_pass: str = "postgres"
+    postgres_dsn: PostgresDsn = (
+        "postgresql://postgres:password@example.supabase.com:6543/postgres"
+    )
 
 
 settings = Settings()
