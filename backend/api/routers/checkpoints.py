@@ -1,8 +1,8 @@
 from fastapi import APIRouter
-from logs import uvicorn
 from sqlalchemy import text
 
-from api.dependencies import EngineDep
+from api.core.dependencies import EngineDep
+from api.core.logs import uvicorn
 
 TABLES = [
     "checkpoints",
