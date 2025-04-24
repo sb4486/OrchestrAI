@@ -13,9 +13,9 @@
   - Seamlessly integrates LLM with growing list of community integrations found here [![MCP Server](https://img.shields.io/github/stars/modelcontextprotocol/servers?logo=modelcontextprotocol&label=MCP-Servers)](https://github.com/modelcontextprotocol/servers)
   - No LLM provider lock in
 
-[![LangGraph](https://img.shields.io/github/stars/langchain-ai/langgraph?logo=langgraph&label=LangGraph)](https://github.com/langchain-ai/langgraph) for Agentic Orchestration
-- Customizable workflows
-  - Built in persisted chat history
+[![LangGraph](https://img.shields.io/github/stars/langchain-ai/langgraph?logo=langgraph&label=LangGraph)](https://github.com/langchain-ai/langgraph) for Customizable Agentic Orchestration
+- Native streaming for UX in complex Agentic Workflows
+- Native persisted chat history and state management
 
 ### Technology Stack and Features
 
@@ -26,6 +26,7 @@
 - [![Supabase](https://img.shields.io/github/stars/supabase/supabase?logo=supabase&label=Supabase)](https://github.com/supabase/supabase) for DB RBAC
   - [![PostgreSQL](https://img.shields.io/github/stars/postgres/postgres?logo=postgresql&label=Postgres)](https://github.com/postgres/postgres) Relational DB
   - [![PGVector](https://img.shields.io/github/stars/pgvector/pgvector?logo=postgresql&label=PGVector)](https://github.com/pgvector/pgvector) Vector Store
+- [![Nginx](https://img.shields.io/github/stars/nginx/nginx?logo=nginx&label=Nginx)](https://github.com/nginx/nginx) Reverse Proxy
 - [![Compose](https://img.shields.io/github/stars/docker/compose?logo=docker&label=Compose)](https://github.com/docker/compose) for development and production.
 
 ### Planned Features
@@ -33,7 +34,6 @@
 - [![LangFuse](https://img.shields.io/github/stars/langfuse/langfuse?logo=langfuse&label=LangFuse)](https://github.com/langfuse/langfuse) for LLM Observability and LLM Metrics
 - [![Prometheus](https://img.shields.io/github/stars/prometheus/prometheus?logo=prometheus&label=Prometheus)](https://github.com/prometheus/prometheus) for scraping Metrics
 - [![Grafana](https://img.shields.io/github/stars/prometheus/prometheus?logo=grafana&label=Grafana)](https://github.com/grafana/grafana) for visualizing Metrics
-- [![Nginx](https://img.shields.io/github/stars/nginx/nginx?logo=nginx&label=Nginx)](https://github.com/nginx/nginx) Reverse Proxy
 - [![Auth0](https://img.shields.io/badge/Auth0-white?logo=auth0)](https://auth0.com/docs) SaaS for JWT authentication
 - CI/CD via Github Actions
   - :dollar: Deploy live demo to [![Fargate](https://img.shields.io/badge/Fargate-white.svg?logo=awsfargate)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html)
