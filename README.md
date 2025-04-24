@@ -5,6 +5,11 @@
   - [Core Features](#core-features)
     - [Technology Stack and Features](#technology-stack-and-features)
     - [Planned Features](#planned-features)
+  - [Getting Started](#getting-started)
+  - [Development](#development)
+    - [VSCode Devcontainer](#vscode-devcontainer)
+    - [Without VSCode Devcontainer](#without-vscode-devcontainer)
+  - [Refactored Markdown Files](#refactored-markdown-files)
 <!--toc:end-->
 
 ## Core Features
@@ -39,3 +44,86 @@
   - :dollar: Deploy live demo to [![Fargate](https://img.shields.io/badge/Fargate-white.svg?logo=awsfargate)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html)
   - Provision with [![Terraform](https://img.shields.io/github/stars/hashicorp/terraform?logo=terraform&label=Terraform)](https://github.com/hashicorp/terraform) IaC
   - Push built images to ECR and Dockerhub
+
+## Getting Started
+
+Build community youtube MCP image with:
+
+```bash
+./community/youtube/build.sh
+```
+
+> [!TIP]
+> Instead of cloning or submoduling the repository locally, then building the image, this script builds the Docker image inside a temporary Docker-in-Docker container. This approach avoids polluting your local environment with throwaway files by cleaning up everything once the container exits.
+
+Then build the other images with:
+
+```bash
+docker compose -f compose-dev.yaml build
+```
+
+Copy environment file:
+
+```bash
+cp .env.sample .env
+```
+
+Add your following API keys and value to the respective file: `./envs/backend.env`, `./envs/youtube.env` and `.env`.
+
+```bash
+OPENAI_API_KEY=sk-proj-...
+POSTGRES_DSN=postgresql://postgres...
+YOUTUBE_API_KEY=...
+```
+
+Set environment variables in shell: (compatible with `bash` and `zsh`)
+
+```bash
+set -a; for env_file in ./envs/*; do source $env_file; done; set +a
+```
+
+Start production containers:
+
+```bash
+docker compose up -d
+```
+
+## Development
+
+### VSCode Devcontainer
+
+> [!WARNING]
+> Only replace the following if you plan to start debugger for FastAPI server in VSCode.
+
+Replace `./compose-dev.yaml` entrypoint to allow debugging FastAPI server:
+
+```yaml
+# ...
+  api:
+    # ...
+    # entrypoint: uv run fastapi run api/main.py --root-path=/api --reload
+    # replace above with:
+    entrypoint: bash -c "sleep infinity"
+    # ...
+```
+
+```bash
+code --no-sandbox .
+```
+
+Press `F1` and type `Dev Containers: Rebuild and Reopen in Container` to open containerized environment with IntelliSense and Debugger for FastAPI.
+
+### Without VSCode Devcontainer
+
+Run development environment with:
+
+```bash
+docker compose -f compose-dev.yaml up -d
+```
+
+## Refactored Markdown Files
+
+The following markdown files provide additional details on other features:
+
+- [`./docs/mcp.md`](./docs/mcp.md)
+- [`./docs/supabase.md`](./docs/supabase.md)

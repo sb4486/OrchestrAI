@@ -4,7 +4,6 @@ from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP(
     "MCP Server",
-    host=os.environ["MCP_SERVER_HOST"],
     port=os.environ["MCP_SERVER_PORT"],
 )
 
