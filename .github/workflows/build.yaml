@@ -7,6 +7,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      docker:
+        image: docker:dind
+        options: --privileged
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock
     env:
       MCP_SERVER_PORT: ${{ secrets.MCP_SERVER_PORT }}
       YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
