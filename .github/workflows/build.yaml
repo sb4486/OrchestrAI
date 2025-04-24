@@ -18,4 +18,5 @@ jobs:
 
       - name: Build production and development docker images
         run: |
+          ./community/youtube/build.sh
           docker compose build
