@@ -47,7 +47,16 @@
 
 ## Getting Started
 
-Build images with:
+Build community youtube MCP image with:
+
+```bash
+./community/youtube/build.sh
+```
+
+> [!TIP]
+> Instead of cloning or submoduling the repository locally, then building the image, this script builds the Docker image inside a temporary Docker-in-Docker container. This approach avoids polluting your local environment with throwaway files by cleaning up everything once the container exits.
+
+Then build the other images with:
 
 ```bash
 docker compose -f compose-dev.yaml build
@@ -83,7 +92,7 @@ docker compose up -d
 
 ### VSCode Devcontainer
 
-> [!WARNING]  
+> [!WARNING]
 > Only replace the following if you plan to start debugger for FastAPI server in VSCode.
 
 Replace `./compose-dev.yaml` entrypoint to allow debugging FastAPI server:
