@@ -14,20 +14,24 @@ class Settings(BaseSettings):
     mcp_server_port: int = 8050
 
     postgres_dsn: PostgresDsn = (
-        "postgresql+psycopg://postgres:password@example.supabase.com:6543/postgres"
+        "postgresql://postgres:password@example.supabase.com:6543/postgres"
     )
 
     @computed_field
     @property
     def orm_conn_str(self) -> str:
-        return self.postgres_dsn.encoded_string()
+        # NOTE: Explicitly follow LangGraph AsyncPostgresSaver
+        # and use psycopg driver for ORM
+        return self.postgres_dsn.encoded_string().replace(
+            "postgresql://", "postgresql+psycopg://"
+        )
 
     @computed_field
     @property
     def checkpoint_conn_str(self) -> str:
         # NOTE: LangGraph AsyncPostgresSaver has some issues
         # with specifying psycopg driver explicitly
-        return self.postgres_dsn.encoded_string().replace("+psycopg", "")
+        return self.postgres_dsn.encoded_string()
 
 
 settings = Settings()
