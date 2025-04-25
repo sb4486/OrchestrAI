@@ -1,5 +1,7 @@
 # FastAPI MCP LangGraph Template
 
+Read the docs with demo videos [here](https://nicholas-goh.com/docs/intro?ref=fastapi-mcp-langgraph-template).
+
 <!--toc:start-->
 - [FastAPI MCP LangGraph Template](#fastapi-mcp-langgraph-template)
   - [Core Features](#core-features)
@@ -10,6 +12,9 @@
     - [VSCode Devcontainer](#vscode-devcontainer)
     - [Without VSCode Devcontainer](#without-vscode-devcontainer)
   - [Refactored Markdown Files](#refactored-markdown-files)
+    - [MCP](#mcp)
+    - [Supabase](#supabase)
+  - [Debugging](#debugging)
 <!--toc:end-->
 
 ## Core Features
@@ -90,6 +95,8 @@ docker compose up -d
 
 ## Development
 
+First, set environment variables as per above.
+
 ### VSCode Devcontainer
 
 > [!WARNING]
@@ -125,5 +132,18 @@ docker compose -f compose-dev.yaml up -d
 
 The following markdown files provide additional details on other features:
 
-- [`./docs/mcp.md`](./docs/mcp.md)
-- [`./docs/supabase.md`](./docs/supabase.md)
+### MCP
+
+[`./docs/mcp.md`](./docs/mcp.md)
+
+### Supabase
+
+[`./docs/supabase.md`](./docs/supabase.md)
+
+## Debugging
+
+Sometimes in development, nginx reverse proxy needs to reload its config to route services properly.
+
+```bash
+docker compose -f compose-dev.yaml exec nginx sh -c "nginx -s reload"
+```
