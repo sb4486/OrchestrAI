@@ -1,5 +1,7 @@
 # FastAPI MCP LangGraph Template
 
+Read the docs with demo videos [here](https://nicholas-goh.com/docs/intro?ref=fastapi-mcp-langgraph-template).
+
 <!--toc:start-->
 - [FastAPI MCP LangGraph Template](#fastapi-mcp-langgraph-template)
   - [Core Features](#core-features)
