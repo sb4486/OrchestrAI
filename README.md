@@ -7,6 +7,11 @@ Read the docs with demo videos [here](https://nicholas-goh.com/docs/intro?ref=fa
   - [Core Features](#core-features)
     - [Technology Stack and Features](#technology-stack-and-features)
     - [Planned Features](#planned-features)
+  - [Architecture](#architecture)
+    - [Inspector](#inspector)
+    - [Template Setup](#template-setup)
+    - [Reverse Proxy](#reverse-proxy)
+    - [Monitoring and Observability](#monitoring-and-observability)
   - [Getting Started](#getting-started)
   - [Development](#development)
     - [VSCode Devcontainer](#vscode-devcontainer)
@@ -49,6 +54,95 @@ Read the docs with demo videos [here](https://nicholas-goh.com/docs/intro?ref=fa
   - :dollar: Deploy live demo to [![Fargate](https://img.shields.io/badge/Fargate-white.svg?logo=awsfargate)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html)
   - Provision with [![Terraform](https://img.shields.io/github/stars/hashicorp/terraform?logo=terraform&label=Terraform)](https://github.com/hashicorp/terraform) IaC
   - Push built images to ECR and Dockerhub
+
+## Architecture
+
+### Inspector
+
+Inspector communicates via SSE protocol with each MCP Server, while each server adheres to MCP specification.
+
+```mermaid
+graph LR
+
+  subgraph localhost
+    A[Inspector]
+    B[DBHub Server]
+    C[Youtube Server]
+    D[Custom Server]
+  end
+
+  subgraph Supabase Cloud
+    E[Supabase DB]
+  end
+
+  subgraph Google Cloud
+    F[Youtube API]
+  end
+
+  A<-->|Protocol|B
+  A<-->|Protocol|C
+  A<-->|Protocol|D
+  B<-->E
+  C<-->F
+```
+
+### Template Setup
+
+The current template does not connect to all MCP servers. Additionally, the API server communicates with the database using a SQL ORM.
+
+```mermaid
+graph LR
+
+  subgraph localhost
+    A[API Server]
+    B[DBHub Server]
+    C[Youtube Server]
+    D[Custom Server]
+  end
+
+  subgraph Supabase Cloud
+    E[Supabase DB]
+  end
+
+  A<-->|Protocol|D
+  A<-->E
+```
+
+### Reverse Proxy
+
+```mermaid
+graph LR
+  A[Web Browser]
+
+  subgraph localhost
+    B[Nginx Reverse Proxy]
+    C[API Server]
+  end
+
+  A-->B
+  B-->C
+```
+
+### Monitoring and Observability
+
+```mermaid
+graph LR
+
+  subgraph localhost
+    A[API Server]
+  end
+
+  subgraph Grafana Cloud
+    B[Grafana]
+  end
+
+  subgraph Langfuse Cloud
+    C[Langfuse]
+  end
+
+  A -->|Metrics & Logs| B
+  A -->|Traces & Events| C
+```
 
 ## Getting Started
 
