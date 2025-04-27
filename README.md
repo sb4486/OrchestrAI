@@ -1,5 +1,7 @@
 # FastAPI MCP LangGraph Template
 
+[![FastAPI MCP LangGraph Template](https://img.shields.io/github/stars/nicholasgoh/fastapi-mcp-langgraph-template?label=FastAPI%20MCP%20LangGraph%20Template)](https://github.com/modelcontextprotocol/python-sdk)
+
 Read the docs with demo videos [here](https://nicholas-goh.com/docs/intro?ref=fastapi-mcp-langgraph-template).
 
 <!--toc:start-->
@@ -241,3 +243,5 @@ Sometimes in development, nginx reverse proxy needs to reload its config to rout
 ```bash
 docker compose -f compose-dev.yaml exec nginx sh -c "nginx -s reload"
 ```
+
+[![Star History Chart](https://api.star-history.com/svg?repos=nicholasgoh/fastapi-mcp-langgraph-template&type=Date)](https://www.star-history.com/#nicholasgoh/fastapi-mcp-langgraph-template&Date)
