@@ -1,8 +1,11 @@
 # FastAPI MCP LangGraph Template
 
-[![FastAPI MCP LangGraph Template](https://img.shields.io/github/stars/nicholasgoh/fastapi-mcp-langgraph-template?label=FastAPI%20MCP%20LangGraph%20Template)](https://github.com/modelcontextprotocol/python-sdk)
+A modern template for agentic orchestration — built for rapid iteration and scalable deployment using highly customizable, community-supported tools like MCP, LangGraph, and more.
 
-Read the docs with demo videos [here](https://nicholas-goh.com/docs/intro?ref=fastapi-mcp-langgraph-template).
+Visit the Github: [![FastAPI MCP LangGraph Template](https://img.shields.io/github/stars/nicholasgoh/fastapi-mcp-langgraph-template?label=FastAPI%20MCP%20LangGraph%20Template)](https://github.com/NicholasGoh/fastapi-mcp-langgraph-template)
+
+> [!NOTE]
+> Read the docs with demo videos [here](https://nicholas-goh.com/docs/intro?ref=fastapi-mcp-langgraph-template). This repo will not contain demo videos.
 
 <!--toc:start-->
 - [FastAPI MCP LangGraph Template](#fastapi-mcp-langgraph-template)
@@ -13,15 +16,20 @@ Read the docs with demo videos [here](https://nicholas-goh.com/docs/intro?ref=fa
     - [Inspector](#inspector)
     - [Template Setup](#template-setup)
     - [Reverse Proxy](#reverse-proxy)
-    - [Monitoring and Observability](#monitoring-and-observability)
-  - [Getting Started](#getting-started)
+    - [Planned Features Diagrams](#planned-features-diagrams)
+      - [Monitoring and Observability](#monitoring-and-observability)
+      - [Authentication and Authorization](#authentication-and-authorization)
+  - [Quick Start](#quick-start)
   - [Development](#development)
     - [VSCode Devcontainer](#vscode-devcontainer)
     - [Without VSCode Devcontainer](#without-vscode-devcontainer)
+  - [Debugging](#debugging)
   - [Refactored Markdown Files](#refactored-markdown-files)
     - [MCP](#mcp)
+    - [LangGraph](#langgraph)
     - [Supabase](#supabase)
-  - [Debugging](#debugging)
+    - [Langfuse](#langfuse)
+    - [Grafana Stack](#grafana-stack)
 <!--toc:end-->
 
 ## Core Features
@@ -51,13 +59,15 @@ Read the docs with demo videos [here](https://nicholas-goh.com/docs/intro?ref=fa
 - [![LangFuse](https://img.shields.io/github/stars/langfuse/langfuse?logo=langfuse&label=LangFuse)](https://github.com/langfuse/langfuse) for LLM Observability and LLM Metrics
 - [![Prometheus](https://img.shields.io/github/stars/prometheus/prometheus?logo=prometheus&label=Prometheus)](https://github.com/prometheus/prometheus) for scraping Metrics
 - [![Grafana](https://img.shields.io/github/stars/prometheus/prometheus?logo=grafana&label=Grafana)](https://github.com/grafana/grafana) for visualizing Metrics
-- [![Auth0](https://img.shields.io/badge/Auth0-white?logo=auth0)](https://auth0.com/docs) SaaS for JWT authentication
+- [![Auth0](https://img.shields.io/badge/Auth0-white?logo=auth0)](https://auth0.com/docs) SaaS for Authentication and Authorization with OIDC & JWT via OAuth 2.0
 - CI/CD via Github Actions
   - :dollar: Deploy live demo to [![Fargate](https://img.shields.io/badge/Fargate-white.svg?logo=awsfargate)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html)
   - Provision with [![Terraform](https://img.shields.io/github/stars/hashicorp/terraform?logo=terraform&label=Terraform)](https://github.com/hashicorp/terraform) IaC
   - Push built images to ECR and Dockerhub
 
 ## Architecture
+
+This section outlines the architecture of the services, their interactions, and planned features.
 
 ### Inspector
 
@@ -112,6 +122,8 @@ graph LR
 
 ### Reverse Proxy
 
+Can be extended for other services like Frontend and/or certain backend services self-hosted instead of on cloud (e.g., Langfuse).
+
 ```mermaid
 graph LR
   A[Web Browser]
@@ -125,7 +137,9 @@ graph LR
   B-->C
 ```
 
-### Monitoring and Observability
+### Planned Features Diagrams
+
+#### Monitoring and Observability
 
 ```mermaid
 graph LR
@@ -146,7 +160,15 @@ graph LR
   A -->|Traces & Events| C
 ```
 
-## Getting Started
+#### Authentication and Authorization
+
+![Auth0 Diagram](https://images.ctfassets.net/cdy7uua7fh8z/7mWk9No612EefC8uBidCqr/821eb60b0aa953b0d8e4afe897228844/Auth-code-flow-diagram.png)
+
+[Auth0 Source](https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow)
+
+## Quick Start
+
+Setup to run the repository in both production and development environments.
 
 Build community youtube MCP image with:
 
@@ -154,8 +176,11 @@ Build community youtube MCP image with:
 ./community/youtube/build.sh
 ```
 
-> [!TIP]
-> Instead of cloning or submoduling the repository locally, then building the image, this script builds the Docker image inside a temporary Docker-in-Docker container. This approach avoids polluting your local environment with throwaway files by cleaning up everything once the container exits.
+:::tip
+
+Instead of cloning or submoduling the repository locally, then building the image, this script builds the Docker image inside a temporary Docker-in-Docker container. This approach avoids polluting your local environment with throwaway files by cleaning up everything once the container exits.
+
+:::
 
 Then build the other images with:
 
@@ -189,26 +214,38 @@ Start production containers:
 docker compose up -d
 ```
 
+<ReactPlayer playing controls url='/vid/fastapi-mcp-langgraph-template/api.mp4' />
+
 ## Development
 
 First, set environment variables as per above.
 
 ### VSCode Devcontainer
 
-> [!WARNING]
-> Only replace the following if you plan to start debugger for FastAPI server in VSCode.
+<ReactPlayer playing controls url='/vid/fastapi-mcp-langgraph-template/vscode.mp4' />
+
+<br/>
+
+:::warning
+
+Only replace the following if you plan to start debugger for FastAPI server in VSCode.
+
+:::
 
 Replace `./compose-dev.yaml` entrypoint to allow debugging FastAPI server:
 
-```yaml
-# ...
+```yaml title="./compose-dev.yaml"
   api:
-    # ...
-    # entrypoint: uv run fastapi run api/main.py --root-path=/api --reload
-    # replace above with:
+    image: api:prod
+    build:
+      dockerfile: ./backend/api/Dockerfile
+    # highlight-next-line
     entrypoint: bash -c "sleep infinity"
-    # ...
+    env_file:
+      - ./envs/backend.env
 ```
+
+Then:
 
 ```bash
 code --no-sandbox .
@@ -224,18 +261,6 @@ Run development environment with:
 docker compose -f compose-dev.yaml up -d
 ```
 
-## Refactored Markdown Files
-
-The following markdown files provide additional details on other features:
-
-### MCP
-
-[`./docs/mcp.md`](./docs/mcp.md)
-
-### Supabase
-
-[`./docs/supabase.md`](./docs/supabase.md)
-
 ## Debugging
 
 Sometimes in development, nginx reverse proxy needs to reload its config to route services properly.
@@ -244,4 +269,33 @@ Sometimes in development, nginx reverse proxy needs to reload its config to rout
 docker compose -f compose-dev.yaml exec nginx sh -c "nginx -s reload"
 ```
 
+## Refactored Markdown Files
+
+The following markdown files provide additional details on other features:
+
+### MCP
+
+[`./docs/mcp.md`](./docs/mcp.md)
+
+### LangGraph
+
+[`./docs/langgraph.md`](./docs/langgraph.md)
+
+### Supabase
+
+[`./docs/supabase.md`](./docs/supabase.md)
+
+### Langfuse
+
+[`./docs/langfuse.md`](./docs/langfuse.md)
+
+### Grafana Stack
+
+[`./docs/grafana-stack.md`](./docs/grafana-stack.md)
+
 [![Star History Chart](https://api.star-history.com/svg?repos=nicholasgoh/fastapi-mcp-langgraph-template&type=Date)](https://www.star-history.com/#nicholasgoh/fastapi-mcp-langgraph-template&Date)
+
+> [!NOTE]
+> Click above to view live update on star history as per their [article](https://www.star-history.com/blog/a-message-to-github-star-history-users):
+> Ongoing Broken Live Chart
+> you can still use this website to view and download charts (though you may need to provide your own token).

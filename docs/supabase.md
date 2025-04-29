@@ -1,19 +1,8 @@
 # Supabase
 
+Demo on getting `POSTGRES_DSN` with Supabase’s free database, auth, and APIs.
+
 [![Supabase](https://img.shields.io/github/stars/supabase/supabase?logo=supabase&label=Supabase)](https://github.com/supabase/supabase)
-
-<!--toc:start-->
-- [Supabase](#supabase)
-  - [Video Demo](#video-demo)
-  - [Features](#features)
-<!--toc:end-->
-
-
-## Video Demo
-
-The start of the video shows how you can get your `POSTGRES_DSN` URL.
-
-![Supabase](./assets/supabase.mp4)
 
 ## Features
 
