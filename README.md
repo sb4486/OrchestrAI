@@ -2,7 +2,7 @@
 
 A modern template for agentic orchestration — built for rapid iteration and scalable deployment using highly customizable, community-supported tools like MCP, LangGraph, and more.
 
-Visit the Github: [![FastAPI MCP LangGraph Template](https://img.shields.io/github/stars/nicholasgoh/fastapi-mcp-langgraph-template?label=FastAPI%20MCP%20LangGraph%20Template)](https://github.com/NicholasGoh/fastapi-mcp-langgraph-template) [![FastAPI MCP LangGraph Template](https://img.shields.io/github/v/tag/nicholasgoh/fastapi-mcp-langgraph-template)](https://github.com/NicholasGoh/fastapi-mcp-langgraph-template)
+Visit the Github: [![FastAPI MCP LangGraph Template](https://img.shields.io/github/stars/nicholasgoh/fastapi-mcp-langgraph-template?label=FastAPI%20MCP%20LangGraph%20Template)](https://github.com/NicholasGoh/fastapi-mcp-langgraph-template) [![FastAPI MCP LangGraph Template](https://img.shields.io/github/v/tag/nicholasgoh/fastapi-mcp-langgraph-template?style=flat)](https://github.com/NicholasGoh/fastapi-mcp-langgraph-template)
 
 > [!NOTE]
 > Read the docs with demo videos [here](https://nicholas-goh.com/docs/intro?ref=fastapi-mcp-langgraph-template). This repo will not contain demo videos.
