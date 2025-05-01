@@ -33,5 +33,11 @@ class Settings(BaseSettings):
         # with specifying psycopg driver explicitly
         return self.postgres_dsn.encoded_string()
 
+    langfuse_public_key: str = ""
+    langfuse_secret_key: str = ""
+    langfuse_host: str = "https://cloud.langfuse.com"
+
+    environment: str = "development"
+
 
 settings = Settings()
