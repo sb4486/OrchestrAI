@@ -8,7 +8,7 @@ from sse_starlette.sse import EventSourceResponse
 from starlette.responses import Response
 
 from api.core.agent.orchestration import get_config, get_graph
-from api.core.dependencies import LLMDep, setup_graph
+from api.core.dependencies import LangfuseHandlerDep, LLMDep, setup_graph
 from api.core.logs import print, uvicorn
 
 router = APIRouter(tags=["chat"])
@@ -26,13 +26,17 @@ async def completions(query: str, llm: LLMDep) -> Response:
 
 
 @router.get("/chat/agent")
-async def agent(query: str, llm: LLMDep) -> Response:
+async def agent(
+    query: str,
+    llm: LLMDep,
+    langfuse_handler: LangfuseHandlerDep,
+) -> Response:
     """Stream LangGraph completions as Server-Sent Events (SSE).
 
     This endpoint streams LangGraph-generated events in real-time, allowing the client
     to receive responses as they are processed, useful for agent-based workflows.
     """
-    return EventSourceResponse(stream_graph(query, llm))
+    return EventSourceResponse(stream_graph(query, llm, langfuse_handler))
 
 
 async def stream_completions(
@@ -57,6 +61,7 @@ async def checkpointer_setup(pool):
 async def stream_graph(
     query: str,
     llm: LLMDep,
+    langfuse_handler: LangfuseHandlerDep,
 ) -> AsyncGenerator[dict[str, str], None]:
     async with setup_graph() as resource:
         graph = get_graph(
@@ -64,7 +69,7 @@ async def stream_graph(
             tools=resource.tools,
             checkpointer=resource.checkpointer,
         )
-        config = get_config()
+        config = get_config(langfuse_handler)
         events = dict(messages=[HumanMessage(content=query)])
 
         async for event in graph.astream_events(events, config, version="v2"):
