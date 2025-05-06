@@ -68,6 +68,7 @@ async def stream_graph(
             llm,
             tools=resource.tools,
             checkpointer=resource.checkpointer,
+            name="math_agent",
         )
         config = get_config(langfuse_handler)
         events = dict(messages=[HumanMessage(content=query)])
