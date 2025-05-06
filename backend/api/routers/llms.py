@@ -72,7 +72,11 @@ async def stream_graph(
         config = get_config(langfuse_handler)
         events = dict(messages=[HumanMessage(content=query)])
 
-        async for event in graph.astream_events(events, config, version="v2"):
-            if event.get("event").endswith("end"):
-                print(event)
+        async for event in graph.astream_events(
+            events,
+            config,
+            version="v2",
+            stream_mode="updates",
+        ):
             yield dict(data=event)
+        print(event)
