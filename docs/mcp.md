@@ -10,9 +10,10 @@ Learn more [here](https://modelcontextprotocol.io/introduction).
 ## Key Features
 
 > MCP helps you build agents and complex workflows on top of LLMs. LLMs frequently need to integrate with data and tools, and MCP provides:
-> - A growing list of pre-built integrations that your LLM can directly plug into
-> - The flexibility to switch between LLM providers and vendors
-> - Best practices for securing your data within your infrastructure
+>
+> -   A growing list of pre-built integrations that your LLM can directly plug into
+> -   The flexibility to switch between LLM providers and vendors
+> -   Best practices for securing your data within your infrastructure
 
 ## Inspector
 
@@ -20,15 +21,15 @@ Explore community and your custom MCP servers via Inspector at [http://localhost
 
 Left Sidebar:
 
-- Select SSE `Transport Type`
-- Input `http://<mcp server>:<MCP_SERVER_PORT>/sse` in `URL`
-- Click `Connect`
+-   Select SSE `Transport Type`
+-   Input `http://<mcp server>:<MCP_SERVER_PORT>/sse` in `URL`
+-   Click `Connect`
 
 Explore the following tabs in the Top Navbar:
 
-- `Resources`
-- `Prompts`
-- `Tools`
+-   `Resources`
+-   `Prompts`
+-   `Tools`
 
 See demo videos to learn more.
 
@@ -42,16 +43,17 @@ Learn more [here](https://github.com/bytebase/dbhub). Explore more in [Inspector
 
 Easily plug in this MCP into LLM to allow LLM to:
 
-- Perform read-only SQL query validation for secure operations
+-   Perform read-only SQL query validation for secure operations
 
-- Enable deterministic introspection of DB
-  - List schemas
-  - List tables in schemas
-  - Retrieve table structures
+-   Enable deterministic introspection of DB
 
-- Enrich user queries deterministically
-  - Ground DB related queries with DB schemas
-  - Provide SQL templates for translating natural language to SQL
+    -   List schemas
+    -   List tables in schemas
+    -   Retrieve table structures
+
+-   Enrich user queries deterministically
+    -   Ground DB related queries with DB schemas
+    -   Provide SQL templates for translating natural language to SQL
 
 ### Youtube
 
@@ -59,20 +61,20 @@ Learn more [here](https://github.com/Klavis-AI/klavis/tree/main/mcp_servers/yout
 
 Instead of building logic to:
 
-- Scrape YouTube content
-- Adapt outputs for LLM compatibility
-- Validate tool invocation by the LLM
-- Chain these steps to fetch transcripts from URLs
+-   Scrape YouTube content
+-   Adapt outputs for LLM compatibility
+-   Validate tool invocation by the LLM
+-   Chain these steps to fetch transcripts from URLs
 
 Simply plug in this MCP to enable LLM to:
 
-- Fetch transcripts from any YouTube URL on demand
+-   Fetch transcripts from any YouTube URL on demand
 
 Check out the [demo video](#video-demo) at the top.
 
 ## Custom MCP
 
-Should you require a custom MCP server, a template is provided [here](https://github.com/NicholasGoh/fastapi-mcp-langgraph-template/blob/main/backend/shared_mcp/tools.py) for you to reference in development.
+Should you require a custom MCP server, a template is provided [here](https://github.com/sb4486/OrchestrAI/blob/main/backend/shared_mcp/tools.py) for you to reference in development.
 
 ```python
 import os
