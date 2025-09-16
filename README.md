@@ -59,7 +59,7 @@ This section outlines the architecture of the services, their interactions, and 
 
 Inspector communicates via SSE protocol with each MCP Server, while each server adheres to MCP specification.
 
-\`\`\`mermaid
+```mermaid
 graph LR
 
   subgraph localhost
@@ -82,13 +82,13 @@ graph LR
   A<-->|Protocol|D
   B<-->E
   C<-->F
-\`\`\`
+```
 
 ### Template Setup
 
 The current template does not connect to all MCP servers. Additionally, the API server communicates with the database using a SQL ORM.
 
-\`\`\`mermaid
+```mermaid
 graph LR
 
   subgraph localhost
@@ -104,13 +104,13 @@ graph LR
 
   A<-->|Protocol|D
   A<-->E
-\`\`\`
+```
 
 ### Reverse Proxy
 
 Can be extended for other services like Frontend and/or certain backend services self-hosted instead of on cloud (e.g., Langfuse).
 
-\`\`\`mermaid
+```mermaid
 graph LR
   A[Web Browser]
 
@@ -121,13 +121,13 @@ graph LR
 
   A-->B
   B-->C
-\`\`\`
+```
 
 ### Planned Features Diagrams
 
 #### Monitoring and Observability
 
-\`\`\`mermaid
+```mermaid
 graph LR
 
   subgraph localhost
@@ -144,7 +144,7 @@ graph LR
 
   A -->|Metrics & Logs| B
   A -->|Traces & Events| C
-\`\`\`
+```
 
 #### Authentication and Authorization
 
@@ -158,9 +158,9 @@ Setup to run the repository in both production and development environments.
 
 Build community youtube MCP image with:
 
-\`\`\`bash
+```bash
 ./community/youtube/build.sh
-\`\`\`
+```
 
 :::tip
 
@@ -170,19 +170,19 @@ Instead of cloning or submoduling the repository locally, then building the imag
 
 Then build the other images with:
 
-\`\`\`bash
+```bash
 docker compose -f compose-dev.yaml build
-\`\`\`
+```
 
 Copy environment file:
 
-\`\`\`bash
+```bash
 cp .env.sample .env
-\`\`\`
+```
 
 Add your following API keys and value to the respective file: \`./envs/backend.env\`, \`./envs/youtube.env\` and \`.env\`.
 
-\`\`\`bash
+```bash
 OPENAI_API_KEY=sk-proj-...
 POSTGRES_DSN=postgresql://postgres...
 
@@ -193,19 +193,19 @@ LANGFUSE_HOST=https://cloud.langfuse.com
 ENVIRONMENT=production
 
 YOUTUBE_API_KEY=...
-\`\`\`
+```
 
 Set environment variables in shell: (compatible with \`bash\` and \`zsh\`)
 
-\`\`\`bash
+```bash
 set -a; for env_file in ./envs/*; do source \$env_file; done; set +a
-\`\`\`
+```
 
 Start production containers:
 
-\`\`\`bash
+```bash
 docker compose up -d
-\`\`\`
+```
 
 <ReactPlayer playing controls url='/vid/fastapi-mcp-langgraph-template/api.mp4' />
 
@@ -227,7 +227,7 @@ Only replace the following if you plan to start debugger for FastAPI server in V
 
 Replace \`./compose-dev.yaml\` entrypoint to allow debugging FastAPI server:
 
-\`\`\`yaml title="./compose-dev.yaml"
+```yaml title="./compose-dev.yaml"
 api:
     image: api:prod
     build:
@@ -236,13 +236,13 @@ api:
     entrypoint: bash -c "sleep infinity"
     env_file:
         - ./envs/backend.env
-\`\`\`
+```
 
 Then:
 
-\`\`\`bash
+```bash
 code --no-sandbox .
-\`\`\`
+```
 
 Press \`F1\` and type \`Dev Containers: Rebuild and Reopen in Container\` to open containerized environment with IntelliSense and Debugger for FastAPI.
 
@@ -250,17 +250,17 @@ Press \`F1\` and type \`Dev Containers: Rebuild and Reopen in Container\` to ope
 
 Run development environment with:
 
-\`\`\`bash
+```bash
 docker compose -f compose-dev.yaml up -d
-\`\`\`
+```
 
 ## 🐛 Debugging
 
 Sometimes in development, nginx reverse proxy needs to reload its config to route services properly.
 
-\`\`\`bash
+```bash
 docker compose -f compose-dev.yaml exec nginx sh -c "nginx -s reload"
-\`\`\`
+```
 
 ## 📚 Documentation
 
